@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.geneve.model.Category;
 
@@ -57,6 +58,7 @@ public class SQLFunctionCategory {
                 category.id = cursor.getString(0);
                 category.category = cursor.getString(1);
                 arrCategory.add(category);
+                Log.d("getcategory",cursor.getString(1));
             }while (cursor.moveToNext());
         }
 
@@ -97,5 +99,11 @@ public class SQLFunctionCategory {
         return sqLiteDatabase.delete(MyDatabaseHelper.TABLE_CATEGORY,
                 MyDatabaseHelper.CATEGORY_ID+"=?",
                 new String[]{id});
+    }
+
+    public void deleteTable(){
+        String sql = "DROP TABLE "+MyDatabaseHelper.TABLE_CATEGORY;
+        this.sqLiteDatabase = db.getWritableDatabase();
+        sqLiteDatabase.execSQL(sql);
     }
 }

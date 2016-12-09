@@ -45,9 +45,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper { // khởi tạo các b�
     public static final String VIDEO_RATING= "rating";
     public static final String VIDEO_VIEWCOUNT= "viewCount";
     public static final String VIDEO_IDCATEGORY= "idCategory";
-
+//
     private String script_tableVideo = "CREATE TABLE if not exists " + TABLE_VIDEO+" ("+
-            VIDEO_ID+ " TEXT PRIMARY KEY NOT NULL, "+
+            VIDEO_ID+ " INTEGER PRIMARY KEY NOT NULL, "+
             VIDEO_TITLE+" TEXT,"+
             VIDEO_DESCRIPTION+" TEXT,"+
             VIDEO_THUMBNAIL+" TEXT,"+
@@ -56,16 +56,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper { // khởi tạo các b�
             VIDEO_CONTENT+" TEXT,"+
             VIDEO_RATING+" TEXT,"+
             VIDEO_VIEWCOUNT+" TEXT,"+
-            VIDEO_IDCATEGORY+" TEXT"+
+            VIDEO_IDCATEGORY+" INTEGER"+
             ");";
 
     // Bảng category
 
     public static final String CATEGORY_ID="_id";
     public static final String CATEGORY_CONTENT="category";
-
+// PRIMARY KEY
     private String script_tableCategory = "CREATE TABLE if not exists "+TABLE_CATEGORY+" ("+
-            CATEGORY_ID+" TEXT PRIMARY KEY NOT NULL, "+
+            CATEGORY_ID+" INTEGER PRIMARY KEY NOT NULL, "+
             CATEGORY_CONTENT+" TEXT"+
             ");";
 

@@ -37,21 +37,23 @@ public class VideoManager { // quản lý video
         reference.child("video").child(itemVideo.getId()).child("comment").child(comment.id).setValue(new Comment(comment.name,comment.textDisplay));
     }
 
-    public void postVideo (){ // tải 1 nội dung video lên server
+    public void postVideo (ItemVideo video){ // tải 1 nội dung video lên server
         ArrayList<Comment> arrayList = new ArrayList<>();
         arrayList.add(new Comment("1","Hay"));
         arrayList.add(new Comment("2","Qua"));
-        itemVideo.setListcomment(arrayList);
-        reference.child("video").child(itemVideo.getId()).setValue(itemVideo);
+        video.setListcomment(arrayList);
+        reference.child("video").child(video.getId()).setValue(video);
     }
 
     public void getAllVideo(){ // lấy tất cả video server về local
         reference.child("video").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) { // lấy tất cả video đc add
+
                 ItemVideo itemVideo = dataSnapshot.getValue(ItemVideo.class);
 
                 SQLFunctionVideo sqlFunctionVideo = new SQLFunctionVideo(activity);
+
                 sqlFunctionVideo.insertVideoSqlite(itemVideo);
 
                 Log.d("videoitem",itemVideo.toString());

@@ -54,12 +54,13 @@ public class SQLFunctionVideo {
         return null;
     }
 
-    public ArrayList<ItemVideo> getAllVideo(){ // lấy tất cả ItemVideo , trả về list<>
+    public ArrayList<ItemVideo> getAllVideo(String id){ // lấy tất cả ItemVideo theo id Category, trả về list<>
+
         ArrayList<ItemVideo> arrItemVideo = new ArrayList<>();
 
         this.sqLiteDatabase = db.getReadableDatabase();
 
-        String sql = "SELECT * FROM "+MyDatabaseHelper.TABLE_VIDEO;
+        String sql = "SELECT * FROM "+MyDatabaseHelper.TABLE_VIDEO+" WHERE "+MyDatabaseHelper.VIDEO_IDCATEGORY+" = "+id;
 
         Cursor cursor = sqLiteDatabase.rawQuery(sql,null);
 
@@ -69,10 +70,13 @@ public class SQLFunctionVideo {
 
                 itemVideo.setId(cursor.getString(0));
 
-                Log.d("testcursor",cursor.getString(2));
+                Log.d("testcursor",cursor.getString(1)+" * "+cursor.getString(9));
+
                 itemVideo.setTitle(cursor.getString(1));
                 itemVideo.setDescription(cursor.getString(2));
-                itemVideo.setThumbnail(cursor.getString(3));
+                itemVideo.
+
+                        setThumbnail(cursor.getString(3));
                 itemVideo.setUploaded(cursor.getString(4));
                 itemVideo.setDuration(cursor.getString(5));
                 itemVideo.setContent(cursor.getString(6));
@@ -82,10 +86,8 @@ public class SQLFunctionVideo {
 
                 arrItemVideo.add(itemVideo);
 
-                Log.d("catchvideo","here ");
-
             }while (cursor.moveToNext());
-        }
+        } else return null;
 
         return arrItemVideo;
     }
@@ -96,7 +98,7 @@ public class SQLFunctionVideo {
 
         ContentValues values = new ContentValues();
 
-        values.put(MyDatabaseHelper.VIDEO_ID,"12");
+        values.put(MyDatabaseHelper.VIDEO_ID,itemVideo.getId());
         values.put(MyDatabaseHelper.VIDEO_TITLE,itemVideo.getTitle());
         values.put(MyDatabaseHelper.VIDEO_DESCRIPTION,itemVideo.getDescription());
         values.put(MyDatabaseHelper.VIDEO_THUMBNAIL,itemVideo.getThumbnail());
@@ -108,7 +110,7 @@ public class SQLFunctionVideo {
         values.put(MyDatabaseHelper.VIDEO_IDCATEGORY,itemVideo.getIdCategory());
 
         sqLiteDatabase.insert(MyDatabaseHelper.TABLE_VIDEO,null,values);
-
+        Log.d("insertvideo",itemVideo.getTitle());
         sqLiteDatabase.close();
 
     }
@@ -117,7 +119,7 @@ public class SQLFunctionVideo {
         this.sqLiteDatabase = db.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(MyDatabaseHelper.VIDEO_ID,"12");
+        values.put(MyDatabaseHelper.VIDEO_ID,itemVideo.getId());
         values.put(MyDatabaseHelper.VIDEO_TITLE,itemVideo.getTitle());
         values.put(MyDatabaseHelper.VIDEO_DESCRIPTION,itemVideo.getDescription());
         values.put(MyDatabaseHelper.VIDEO_THUMBNAIL,itemVideo.getThumbnail());
@@ -138,6 +140,12 @@ public class SQLFunctionVideo {
         return sqLiteDatabase.delete(MyDatabaseHelper.TABLE_VIDEO,
                 MyDatabaseHelper.VIDEO_ID+"=?",
                 new String[]{id});
+    }
+
+    public void deleteTable(){
+        String sql = "DROP TABLE "+MyDatabaseHelper.TABLE_VIDEO;
+        this.sqLiteDatabase = db.getWritableDatabase();
+        sqLiteDatabase.execSQL(sql);
     }
 
 }

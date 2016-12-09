@@ -24,6 +24,20 @@ public class ItemVideo {
         initVideo();
     }
 
+    public ItemVideo(String id, String title, String description, String thumbnail, String uploaded, String duration, String content, String rating, String viewCount, ArrayList<Comment> listcomment, String idCategory) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.thumbnail = thumbnail;
+        this.uploaded = uploaded;
+        this.duration = duration;
+        this.content = content;
+        this.rating = rating;
+        this.viewCount = viewCount;
+        this.listcomment = listcomment;
+        this.idCategory = idCategory;
+    }
+
     private void initVideo() {
         this.id = "0";
         this.title = "Null";

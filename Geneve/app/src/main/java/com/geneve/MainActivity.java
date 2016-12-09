@@ -12,10 +12,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
-import com.geneve.database.SQLFunctionVideo;
+import com.geneve.adapter.CategoryAdapter;
+import com.geneve.database.SQLFunctionCategory;
 import com.geneve.model.CategoryManager;
 import com.geneve.model.VideoManager;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,20 +56,92 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void mainFunction() {
-//        ItemVideo i = new ItemVideo();
+
+//        ItemVideo i3 = new ItemVideo("3","Chuyến đi gần nhất","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
+//
+//        ItemVideo i4 = new ItemVideo("4","Giao thông Việt Nam","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"2");
+//
+//        ItemVideo i5 = new ItemVideo("5","Nói về gia đình","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"3");
+//
+//        ItemVideo i6 = new ItemVideo("6","Chào hỏi cơ bản","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"0");
+//
+//        ItemVideo i7 = new ItemVideo("7","Kỷ niệm nhớ nhất","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
+//
+//        ItemVideo i8 = new ItemVideo("8","Thành viên gia đình","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"2");
+//
+//        ItemVideo i9 = new ItemVideo("9","Cảnh đẹp Hà Nội","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
+//
+//        ItemVideo i10 = new ItemVideo("10","Vẻ đẹp Hồ Gươm","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
+//
+//        ItemVideo i11 = new ItemVideo("11","Phố Cổ","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
+//
+
+//        videoManager.postVideo(i3);
+//        videoManager.postVideo(i4);
+//        videoManager.postVideo(i5);
+//        videoManager.postVideo(i6);
+//        videoManager.postVideo(i7);
+//        videoManager.postVideo(i8);
+//        videoManager.postVideo(i9);
+//        videoManager.postVideo(i10);
+//        videoManager.postVideo(i11);
+
         VideoManager videoManager = new VideoManager(this);
+        CategoryManager categoryManager = new CategoryManager(this);
+
+        SQLFunctionCategory sqlFunctionCategory = new SQLFunctionCategory(this);
+
         videoManager.getAllVideo();
-        SQLFunctionVideo sqlFunctionVideo = new SQLFunctionVideo(this);
+        categoryManager.getAllCategory();
 
-//        Category category = new Category("0","Giao tieeps");
-//        Category category1 = new Category("1","Giao tieeps");umberV
-//        category.postCategory();
-//        category1.postCategory();
-//        category.getAllCategory();
-        CategoryManager manager = new CategoryManager(this);
-        manager.getAllCategory();
+//        String response = null;
+//        try{
+//            URL url = new URL("localhost:8888/user");
+//            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+//            conn.setRequestMethod("GET");
+//            //
+//            InputStream in = new BufferedInputStream(conn.getInputStream());
+//            response = convertToString(in);
+//            Log.d("jsonnodejs",response);
+//        } catch (Exception e) {
+//            Log.e("jsonnodejs", "Exception: " + e.getMessage());
+//        }
 
 
+        ListView listView = (ListView) findViewById(R.id.lst);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this,sqlFunctionCategory.getListCategory());
+        listView.setAdapter(categoryAdapter);
+
+    }
+
+    private String convertToString(InputStream is) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        try {
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append('\n');
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
     }
 
     @Override

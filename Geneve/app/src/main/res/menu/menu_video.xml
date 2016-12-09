@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_add_watch_later"
+        android:orderInCategory="100"
+        android:title="Thêm vào xem sau" />
+
+    <item
+        android:id="@+id/action_add_favourite"
+        android:orderInCategory="101"
+        android:title="Thêm vào yêu thích" />
+
+    <item
+        android:id="@+id/action_ignore_video"
+        android:orderInCategory="101"
+        android:title="Bỏ qua video này" />
+</menu>

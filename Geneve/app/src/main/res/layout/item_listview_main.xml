@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Giao tiếp cơ bản"
+        android:textColor="@color/colorTextCategory"
+        android:padding="12dp"
+        android:layout_marginLeft="12dp"
+        android:textSize="22dp"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:layout_gravity="center"
+        android:id="@+id/recy_itemvideo">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
