@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="ID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/lineleft"
+        android:id="@+id/id" />
+
+    <TextView
+        android:text="ngày đăng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/lineleft"
+        android:id="@+id/dateupload" />
+
+    <TextView
+        android:text="mô tả"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/lineleft"
+        android:layout_height="wrap_content"
+        android:id="@+id/description" />
+
+    <TextView
+        android:text="Content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/lineleft"
+        android:layout_height="wrap_content"
+        android:id="@+id/content" />
+</LinearLayout>

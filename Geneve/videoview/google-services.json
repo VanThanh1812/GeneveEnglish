@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "231323296001",
+    "firebase_url": "https://geneve-english.firebaseio.com",
+    "project_id": "geneve-english",
+    "storage_bucket": "geneve-english.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231323296001:android:29d8577c9463c012",
+        "android_client_info": {
+          "package_name": "com.geneve"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231323296001-8akmt7qnr6al4m56c299i3i3prpotpus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7rJ6wVkIniMQyT5-Xj4bSPu9oF25S9dg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231323296001:android:f6e375694b913803",
+        "android_client_info": {
+          "package_name": "karu.videoview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231323296001-v222dgrdc9dudq5bfi0leomn18jqrigs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "karu.videoview",
+            "certificate_hash": "05490104FF96A4BBE4DCA36A56A92FA0F3B24E95"
+          }
+        },
+        {
+          "client_id": "231323296001-8akmt7qnr6al4m56c299i3i3prpotpus.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7rJ6wVkIniMQyT5-Xj4bSPu9oF25S9dg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231323296001-8akmt7qnr6al4m56c299i3i3prpotpus.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
