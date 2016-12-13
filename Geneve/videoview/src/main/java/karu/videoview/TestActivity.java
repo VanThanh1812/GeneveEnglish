@@ -6,7 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.VideoView;
-public class MainActivity extends AppCompatActivity {
+
+import vanthanh.com.model.Video;
+
+public class TestActivity extends AppCompatActivity {
     VideoView videoView;
     Button button;
 

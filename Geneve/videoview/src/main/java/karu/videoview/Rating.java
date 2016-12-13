@@ -17,6 +17,7 @@ public class Rating extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
+
         ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
         textView = (TextView) findViewById(R.id.ratingmean);
         submit=(Button)findViewById(R.id.submit);

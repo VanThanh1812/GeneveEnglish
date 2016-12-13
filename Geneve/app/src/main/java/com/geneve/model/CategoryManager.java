@@ -2,12 +2,14 @@ package com.geneve.model;
 
 import android.content.Context;
 
-import com.geneve.database.SQLFunctionCategory;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import vanthanh.com.model.Category;
+import vanthanh.com.model.database.SQLFunctionCategory;
 
 /**
  * Created by vanthanhbk on 30/11/2016.

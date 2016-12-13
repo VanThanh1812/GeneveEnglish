@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.geneve.adapter.CategoryAdapter;
-import com.geneve.database.SQLFunctionCategory;
 import com.geneve.model.CategoryManager;
 import com.geneve.model.VideoManager;
 
@@ -23,6 +22,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import vanthanh.com.model.database.SQLFunctionCategory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,31 +58,31 @@ public class MainActivity extends AppCompatActivity
 
     private void mainFunction() {
 
-//        ItemVideo i3 = new ItemVideo("3","Chuyến đi gần nhất","Chủ đề video là cách chào hỏi khi mới gặp",
+//        Video i3 = new Video("3","Chuyến đi gần nhất","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
 //
-//        ItemVideo i4 = new ItemVideo("4","Giao thông Việt Nam","Chủ đề video là cách chào hỏi khi mới gặp",
+//        Video i4 = new Video("4","Giao thông Việt Nam","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"2");
 //
-//        ItemVideo i5 = new ItemVideo("5","Nói về gia đình","Chủ đề video là cách chào hỏi khi mới gặp",
+//        Video i5 = new Video("5","Nói về gia đình","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"3");
 //
-//        ItemVideo i6 = new ItemVideo("6","Chào hỏi cơ bản","Chủ đề video là cách chào hỏi khi mới gặp",
+//        Video i6 = new Video("6","Chào hỏi cơ bản","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"0");
 //
-//        ItemVideo i7 = new ItemVideo("7","Kỷ niệm nhớ nhất","Chủ đề video là cách chào hỏi khi mới gặp",
+//        Video i7 = new Video("7","Kỷ niệm nhớ nhất","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
 //
-//        ItemVideo i8 = new ItemVideo("8","Thành viên gia đình","Chủ đề video là cách chào hỏi khi mới gặp",
+//        Video i8 = new Video("8","Thành viên gia đình","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"2");
 //
-//        ItemVideo i9 = new ItemVideo("9","Cảnh đẹp Hà Nội","Chủ đề video là cách chào hỏi khi mới gặp",
+//        Video i9 = new Video("9","Cảnh đẹp Hà Nội","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
 //
-//        ItemVideo i10 = new ItemVideo("10","Vẻ đẹp Hồ Gươm","Chủ đề video là cách chào hỏi khi mới gặp",
+//        Video i10 = new Video("10","Vẻ đẹp Hồ Gươm","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
 //
-//        ItemVideo i11 = new ItemVideo("11","Phố Cổ","Chủ đề video là cách chào hỏi khi mới gặp",
+//        Video i11 = new Video("11","Phố Cổ","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
 //
 

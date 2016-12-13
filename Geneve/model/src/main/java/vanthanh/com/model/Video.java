@@ -1,12 +1,18 @@
-package com.geneve.model;
+package vanthanh.com.model;
 
+/**
+ * Created by hoang on 02/12/2016.
+ */
+
+import java.io.Serializable;
 import java.util.ArrayList;
+
 
 /**
  * Created by vanthanhbk on 27/11/2016.
  */
 
-public class ItemVideo {
+public class Video implements Serializable{
 
     private String id;
     private String title;
@@ -17,25 +23,11 @@ public class ItemVideo {
     private String content;
     private String rating;
     private String viewCount;
-    private ArrayList<Comment> listcomment;
+    private ArrayList<vanthanh.com.model.Comment> listcomment;
     private String idCategory;
 
-    public ItemVideo() {
+    public Video() {
         initVideo();
-    }
-
-    public ItemVideo(String id, String title, String description, String thumbnail, String uploaded, String duration, String content, String rating, String viewCount, ArrayList<Comment> listcomment, String idCategory) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.thumbnail = thumbnail;
-        this.uploaded = uploaded;
-        this.duration = duration;
-        this.content = content;
-        this.rating = rating;
-        this.viewCount = viewCount;
-        this.listcomment = listcomment;
-        this.idCategory = idCategory;
     }
 
     private void initVideo() {
@@ -69,11 +61,11 @@ public class ItemVideo {
                 '}';
     }
 
-    public ArrayList<Comment> getListcomment() {
+    public ArrayList<vanthanh.com.model.Comment> getListcomment() {
         return listcomment;
     }
 
-    public void setListcomment(ArrayList<Comment> listcomment) {
+    public void setListcomment(ArrayList<vanthanh.com.model.Comment> listcomment) {
         this.listcomment = listcomment;
     }
 

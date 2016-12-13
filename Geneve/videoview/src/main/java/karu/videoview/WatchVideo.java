@@ -20,18 +20,15 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
-import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.VideoView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
+import vanthanh.com.model.Video;
 
 
 public class WatchVideo extends AppCompatActivity {
@@ -132,7 +129,7 @@ public class WatchVideo extends AppCompatActivity {
         VideoController mediaController = new VideoController(this);
         //MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
-        final Uri video = Uri.parse(object.getId());
+        final Uri video = Uri.parse(object.getContent());
         videoView.setMediaController(mediaController);
 
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

@@ -1,4 +1,4 @@
-package com.geneve.model;
+package vanthanh.com.model;
 
 /**
  * Created by vanthanhbk on 27/11/2016.

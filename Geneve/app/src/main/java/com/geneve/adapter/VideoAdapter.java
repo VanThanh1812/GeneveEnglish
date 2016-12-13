@@ -1,6 +1,7 @@
 package com.geneve.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.geneve.R;
-import com.geneve.model.ItemVideo;
 
 import java.util.ArrayList;
+
+import karu.videoview.WatchVideo;
+import vanthanh.com.model.Video;
 
 /**
  * Created by vanthanhbk on 02/12/2016.
@@ -26,7 +29,7 @@ import java.util.ArrayList;
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList<ItemVideo> arrayVideo;
+    private ArrayList<Video> arrayVideo;
 
     public class MyViewHolder extends RecyclerView.ViewHolder { // khoi tao lop
 
@@ -45,7 +48,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         }
     }
 
-    public VideoAdapter(Context context, ArrayList<ItemVideo> arrayVideo) {
+    public VideoAdapter(Context context, ArrayList<Video> arrayVideo) {
 
         this.context = context;
         this.arrayVideo = arrayVideo;
@@ -62,11 +65,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        ItemVideo itemVideo = arrayVideo.get(position);
-        holder.tv_rating.setText(itemVideo.getRating());
-        holder.tv_uploaded.setText(itemVideo.getUploaded());
-        holder.tv_title.setText(itemVideo.getTitle());
-        Glide.with(context).load(itemVideo.getThumbnail()).placeholder(R.drawable.ic_luncher).into(holder.iv_thumbail);
+        Video video = arrayVideo.get(position);
+        holder.tv_rating.setText(video.getRating());
+        holder.tv_uploaded.setText(video.getUploaded());
+        holder.tv_title.setText(video.getTitle());
+        Glide.with(context).load(video.getThumbnail()).placeholder(R.drawable.ic_luncher).into(holder.iv_thumbail);
         holder.iv_popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +92,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     }
 
     private void intentActivityVideo(int pos) {
-        Toast.makeText(context, arrayVideo.get(pos).getTitle(), Toast.LENGTH_SHORT).show();
+        Video video = arrayVideo.get(pos);
+        Intent wordLayout = new Intent(context, WatchVideo.class);
+        wordLayout.putExtra("object",video);
+        wordLayout.putExtra("state",false);
+        wordLayout.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.getApplicationContext().startActivity(wordLayout);
     }
 
 

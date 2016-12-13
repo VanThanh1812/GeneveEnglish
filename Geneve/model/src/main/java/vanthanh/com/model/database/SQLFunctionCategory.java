@@ -1,4 +1,4 @@
-package com.geneve.database;
+package vanthanh.com.model.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,9 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.geneve.model.Category;
-
 import java.util.ArrayList;
+
+import vanthanh.com.model.Category;
 
 /**
  * Created by vanthanhbk on 29/11/2016.

@@ -12,11 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.geneve.R;
-import com.geneve.database.SQLFunctionVideo;
-import com.geneve.model.Category;
-import com.geneve.model.ItemVideo;
 
 import java.util.ArrayList;
+
+import vanthanh.com.model.Category;
+import vanthanh.com.model.Video;
+import vanthanh.com.model.database.SQLFunctionVideo;
 
 /**
  * Created by vanthanhbk on 02/12/2016.
@@ -45,7 +46,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 
         SQLFunctionVideo sqlFunctionVideo = new SQLFunctionVideo(context);
 
-        ArrayList<ItemVideo> arrVideo = new ArrayList<>();
+        ArrayList<Video> arrVideo = new ArrayList<>();
 
         arrVideo = sqlFunctionVideo.getAllVideo(category.id);
 
@@ -60,7 +61,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 
         recyclerView.setAdapter(adapter);
 
-//        final ArrayList<ItemVideo> finalArrVideo = arrVideo;
+//        final ArrayList<Video> finalArrVideo = arrVideo;
 //        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int position) {

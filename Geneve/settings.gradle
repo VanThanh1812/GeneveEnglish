@@ -1,1 +1,1 @@
-include ':app', ':videoview'
+include ':app', ':videoview', ':model'
