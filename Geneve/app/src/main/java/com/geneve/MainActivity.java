@@ -1,9 +1,7 @@
 package com.geneve;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 
 import com.geneve.adapter.CategoryAdapter;
@@ -23,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import vanthanh.com.model.Video;
 import vanthanh.com.model.database.SQLFunctionCategory;
 
 public class MainActivity extends AppCompatActivity
@@ -34,15 +32,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,8 +47,8 @@ public class MainActivity extends AppCompatActivity
 
     private void mainFunction() {
 
-//        Video i3 = new Video("3","Chuyến đi gần nhất","Chủ đề video là cách chào hỏi khi mới gặp",
-//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
+        Video i3 = new Video("2","Chuyến đi gần nhất","Chủ đề video là cách chào hỏi khi mới gặp",
+                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"0");
 //
 //        Video i4 = new Video("4","Giao thông Việt Nam","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"2");
@@ -86,7 +75,6 @@ public class MainActivity extends AppCompatActivity
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"1");
 //
 
-//        videoManager.postVideo(i3);
 //        videoManager.postVideo(i4);
 //        videoManager.postVideo(i5);
 //        videoManager.postVideo(i6);
@@ -97,6 +85,7 @@ public class MainActivity extends AppCompatActivity
 //        videoManager.postVideo(i11);
 
         VideoManager videoManager = new VideoManager(this);
+
         CategoryManager categoryManager = new CategoryManager(this);
 
         SQLFunctionCategory sqlFunctionCategory = new SQLFunctionCategory(this);

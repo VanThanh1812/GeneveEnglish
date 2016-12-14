@@ -164,19 +164,16 @@ public class WatchVideo extends AppCompatActivity {
                     LayoutInflater layoutInflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     View addView = layoutInflater.inflate(R.layout.information, null); //
                     // init variant
-                    TextView id, description, dateupload, content;
+                    TextView id, description, dateupload;
                     id = (TextView) addView.findViewById(R.id.id);
                     description = (TextView) addView.findViewById(R.id.description);
                     dateupload = (TextView) addView.findViewById(R.id.dateupload);
-                    content = (TextView) addView.findViewById(R.id.content);
                     // set view
-                    id.setText("id video" + object.getDuration()); // set duration
-                    dateupload.setText(object.getUploaded()); // set date upload
-                    description.setText(object.getDescription()); // set description
-                    content.setText(object.getContent()); // set content
+                    id.setText("Duration: " + object.getDuration()); // set duration
+                    dateupload.setText("Uploaded: "+object.getUploaded()); // set date upload
+                    description.setText("Description: "+object.getDescription()); // set description
                     container.addView(addView);
                 } else {
-                    // The toggle is disabled
                     container.removeAllViews();
                 }
             }

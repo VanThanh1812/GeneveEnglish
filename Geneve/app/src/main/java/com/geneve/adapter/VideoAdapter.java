@@ -69,7 +69,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         holder.tv_rating.setText(video.getRating());
         holder.tv_uploaded.setText(video.getUploaded());
         holder.tv_title.setText(video.getTitle());
-        Glide.with(context).load(video.getThumbnail()).placeholder(R.drawable.ic_luncher).into(holder.iv_thumbail);
+        Glide.with(context).load(video.getThumbnail()).placeholder(R.drawable.ic_default).into(holder.iv_thumbail);
         holder.iv_popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,7 +97,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         wordLayout.putExtra("object",video);
         wordLayout.putExtra("state",false);
         wordLayout.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.getApplicationContext().startActivity(wordLayout);
+        context.startActivity(wordLayout);
     }
 
 

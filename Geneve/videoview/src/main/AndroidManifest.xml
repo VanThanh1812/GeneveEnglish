@@ -9,7 +9,9 @@
             >
 
         </activity>
-        <activity android:name=".WatchVideo"   android:configChanges="orientation|screenSize"
+        <activity
+            android:name=".WatchVideo"   android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.MyTheme"
             />
         <activity android:name=".Rating"
             android:theme="@style/AppTheme.MyTheme">
