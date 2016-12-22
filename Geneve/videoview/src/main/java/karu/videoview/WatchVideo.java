@@ -69,10 +69,10 @@ public class WatchVideo extends AppCompatActivity {
         params.width = getScreenHeight();
         container.setLayoutParams(params);
         // set video full screen
-        LinearLayout.LayoutParams paramsvideo = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams paramsvideo = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         paramsvideo.height = getScreenWidth();
         paramsvideo.width = getScreenHeight();
-        paramsvideo.weight = 1.0f;
+        //paramsvideo.weight = 1.0f;
         paramsvideo.gravity = Gravity.CENTER;
         videoView.setLayoutParams(paramsvideo);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);

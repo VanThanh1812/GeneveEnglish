@@ -1,5 +1,6 @@
 package com.geneve.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
@@ -50,7 +51,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         }
     }
 
-    public VideoAdapter(Context context, ArrayList<Video> arrayVideo) {
+    public VideoAdapter(Activity activity,Context context, ArrayList<Video> arrayVideo) {
 
         this.context = context;
         this.arrayVideo = arrayVideo;
@@ -100,6 +101,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         wordLayout.putExtra("state",false);
         wordLayout.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(wordLayout);
+
     }
 
 
