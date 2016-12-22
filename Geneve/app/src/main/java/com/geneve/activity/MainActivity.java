@@ -1,30 +1,40 @@
-package com.geneve;
+package com.geneve.activity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.geneve.R;
 import com.geneve.adapter.CategoryAdapter;
+import com.geneve.adapter.VideoIgnoreAdaper;
 import com.geneve.model.CategoryManager;
 import com.geneve.model.VideoManager;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
-import vanthanh.com.model.Video;
 import vanthanh.com.model.database.SQLFunctionCategory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +52,35 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        setSearchView();
         mainFunction();
+    }
+
+    private void setSearchView() {
+        searchView = (MaterialSearchView) findViewById(R.id.search_view);
+        searchView.setVoiceSearch(true);
+        searchView.setHint("Enter key word");
+        searchView.setHintTextColor(Color.GRAY);
+        searchView.setVoiceIcon(getResources().getDrawable(android.R.drawable.ic_btn_speak_now));
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(MainActivity.this, query, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Toast.makeText(MainActivity.this, newText, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     private void mainFunction() {
 
-        Video i3 = new Video("2","Chuyến đi gần nhất","Chủ đề video là cách chào hỏi khi mới gặp",
-                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"0");
+//        Video i3 = new Video("2","Chuyến đi gần nhất","Chủ đề video là cách chào hỏi khi mới gặp",
+//                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"0");
 //
 //        Video i4 = new Video("4","Giao thông Việt Nam","Chủ đề video là cách chào hỏi khi mới gặp",
 //                "http:abc","2016-12-03 07:23:23","12ph","http:abc","4.2","123",null,"2");
@@ -90,25 +122,14 @@ public class MainActivity extends AppCompatActivity
 
         SQLFunctionCategory sqlFunctionCategory = new SQLFunctionCategory(this);
 
-        videoManager.getAllVideo();
         categoryManager.getAllCategory();
 
-//        String response = null;
-//        try{
-//            URL url = new URL("localhost:8888/user");
-//            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-//            conn.setRequestMethod("GET");
-//            //
-//            InputStream in = new BufferedInputStream(conn.getInputStream());
-//            response = convertToString(in);
-//            Log.d("jsonnodejs",response);
-//        } catch (Exception e) {
-//            Log.e("jsonnodejs", "Exception: " + e.getMessage());
-//        }
-
+        videoManager.getAllVideo();
 
         ListView listView = (ListView) findViewById(R.id.lst);
+
         CategoryAdapter categoryAdapter = new CategoryAdapter(this,sqlFunctionCategory.getListCategory());
+
         listView.setAdapter(categoryAdapter);
 
     }
@@ -142,12 +163,21 @@ public class MainActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+
+        if (searchView.isSearchOpen()){
+            searchView.closeSearch();
+        }else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
         return true;
     }
 
@@ -159,9 +189,6 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -172,22 +199,34 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_favourite) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_viewlater) {
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_ignore) {
+            Intent i = new Intent(this, VideoIgnoreActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_infomation) {
 
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK){
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (matches != null && matches.size() > 0){
+                String searchWrd = matches.get(0);
+                if (!TextUtils.isEmpty(searchWrd)){
+                    searchView.setQuery(searchWrd,false);
+                }
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }

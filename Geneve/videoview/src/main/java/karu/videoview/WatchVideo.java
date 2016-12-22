@@ -18,8 +18,10 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -57,7 +59,7 @@ public class WatchVideo extends AppCompatActivity {
     public void setFullscreen() {
 
         VideoView videoView = (VideoView) findViewById(R.id.videoview);
-        LinearLayout container = (LinearLayout) findViewById(R.id.container_video);
+        FrameLayout container = (FrameLayout) findViewById(R.id.container_video);
         // ghi nhớ size ở normal screen
         previousHeight = container.getHeight();
         previousWidth = container.getWidth();
@@ -79,7 +81,7 @@ public class WatchVideo extends AppCompatActivity {
     // set normal
     public void setNormalscreen() {
         VideoView videoView = (VideoView) findViewById(R.id.videoview);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.container_video);
+        FrameLayout layout = (FrameLayout) findViewById(R.id.container_video);
         LayoutParams params = layout.getLayoutParams();
         params.height = previousHeight;
         params.width = previousWidth;
@@ -125,9 +127,10 @@ public class WatchVideo extends AppCompatActivity {
 
         //Search in database
 
-        // khởi tạo media player
+        // khởi tạo media player và dialog
+        final ProgressBar bar = (ProgressBar) findViewById(R.id.progress2);
         VideoController mediaController = new VideoController(this);
-        //MediaController mediaController = new MediaController(this);
+
         mediaController.setAnchorView(videoView);
         final Uri video = Uri.parse(object.getContent());
         videoView.setMediaController(mediaController);
@@ -136,12 +139,15 @@ public class WatchVideo extends AppCompatActivity {
             @Override
             public void onPrepared(MediaPlayer mp) {
                 videoView.start();
+                bar.setVisibility(View.INVISIBLE);
                 boolean state = intent.getExtras().getBoolean("state");
                 if (state == true) {
                     videoView.seekTo(intent.getExtras().getInt("stopat"));
                 }
             }
+
         });
+
         videoView.setVideoURI(video); // set link cho video
         // khi video kết thúc
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

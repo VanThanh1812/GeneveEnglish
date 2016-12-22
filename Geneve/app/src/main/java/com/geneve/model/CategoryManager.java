@@ -48,6 +48,7 @@ public class CategoryManager  {  // quản lý hàm đối với Category
                 SQLFunctionCategory sqlFunctionCategory = new SQLFunctionCategory(context);
                 sqlFunctionCategory.insertCategory(category);
 
+
             }
 
             @Override

@@ -20,21 +20,20 @@ public class MyDatabaseHelper extends SQLiteOpenHelper { // khởi tạo các b�
     // danh sách bảng
     public static final String TABLE_VIDEO = "TableVideo";
     public static final String TABLE_CATEGORY = "TableCategory";
+    public static final String TABLE_STATUSVIDEO = "TableStatus";
+
+    // bảng Table Status
+
+    public static final String STATUS_ID = "_id";
+    public static final String STATUS_STATUS= "status";
+
+    private static final String script_tableStatus = "CREATE TABLE if not exists "+TABLE_STATUSVIDEO+" ("+
+            STATUS_ID+" INTEGER PRIMARY KEY NOT NULL, "+
+            STATUS_STATUS+ " TEXT"+
+            ");";
 
     // bảng Table video
-    /*
-    * private String id;
-    private String title;
-    private String description;
-    private String thumbnail;   //link image
-    private String uploaded;    //time uploaded
-    private String duration;  //time video
-    private String content;
-    private String rating;
-    private String viewCount;
-    private ArrayList<Comment> listcomment;
-    private String idCategory;
-    * */
+
     public static final String VIDEO_ID = "_id";
     public static final String VIDEO_TITLE= "title";
     public static final String VIDEO_DESCRIPTION= "description";
@@ -70,6 +69,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper { // khởi tạo các b�
             ");";
 
 
+
+
     public MyDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -81,12 +82,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper { // khởi tạo các b�
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(script_tableVideo);
         sqLiteDatabase.execSQL(script_tableCategory);
+        sqLiteDatabase.execSQL(script_tableStatus);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_VIDEO);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_STATUSVIDEO);
         onCreate(sqLiteDatabase);
     }
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +35,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 
     @Override
     public View getView(int position, final View convertView, ViewGroup parent) {
+
         View view = LayoutInflater.from(context).inflate(R.layout.item_listview_main,null);
         TextView tv_category = (TextView) view.findViewById(R.id.tv_category);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recy_itemvideo);
@@ -48,7 +48,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 
         ArrayList<Video> arrVideo = new ArrayList<>();
 
-        arrVideo = sqlFunctionVideo.getAllVideo(category.id);
+        arrVideo = sqlFunctionVideo.getAllVideoByCategory(category.id);
 
         final VideoAdapter adapter = new VideoAdapter(context.getApplicationContext(),arrVideo);
 
@@ -60,6 +60,7 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         recyclerView.setAdapter(adapter);
+
 
 //        final ArrayList<Video> finalArrVideo = arrVideo;
 //        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
@@ -75,7 +76,6 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 //            }
 //        }));
 
-        Log.d("getlistvideo "+category.category,String.valueOf(sqlFunctionVideo.getAllVideo(category.id).size()));
         return view;
     }
 

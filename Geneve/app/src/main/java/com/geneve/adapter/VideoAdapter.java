@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 import karu.videoview.WatchVideo;
 import vanthanh.com.model.Video;
+import vanthanh.com.model.database.SQLFunctionStatus;
+import vanthanh.com.model.database.StaticValues;
 
 /**
  * Created by vanthanhbk on 02/12/2016.
@@ -65,7 +67,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        Video video = arrayVideo.get(position);
+        final Video video = arrayVideo.get(position);
         holder.tv_rating.setText(video.getRating());
         holder.tv_uploaded.setText(video.getUploaded());
         holder.tv_title.setText(video.getTitle());
@@ -73,7 +75,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
         holder.iv_popup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupMenu(holder.iv_popup);
+                showPopupMenu(holder.iv_popup, video);
             }
         });
 
@@ -105,15 +107,13 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
      * Showing popup menu when tapping on 3 dots
      */
 
-    private void showPopupMenu(View popup) {
-
+    private void showPopupMenu(View popup, Video video) {
         // inflate menu
         PopupMenu popupMenu = new PopupMenu(popup.getContext(),popup);
         MenuInflater menuInflater = popupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.menu_video,popupMenu.getMenu());
-        popupMenu.setOnMenuItemClickListener(new MyMenuItemClickListener());
+        popupMenu.setOnMenuItemClickListener(new MyMenuItemClickListener(video));
         popupMenu.show();
-
     }
 
     @Override
@@ -123,20 +123,31 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
 
     class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
 
-        public MyMenuItemClickListener() {
+        private Video video;
+
+        SQLFunctionStatus sqlFunctionStatus;
+
+        public MyMenuItemClickListener(Video video) {
+            this.video = video;
+            sqlFunctionStatus = new SQLFunctionStatus(context);
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
                 case R.id.action_add_favourite:
-                    Toast.makeText(context, "Add favourite", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                    sqlFunctionStatus.updateStatus(String.valueOf(video.getId()),String.valueOf(StaticValues.FAVOURITE));
                     return true;
                 case R.id.action_add_watch_later:
-                    Toast.makeText(context, "Watch it later", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Đã thêm vào xem sau", Toast.LENGTH_SHORT).show();
+                    sqlFunctionStatus.updateStatus(String.valueOf(video.getId()),String.valueOf(StaticValues.WATCHLATER));
                     return true;
                 case R.id.action_ignore_video:
-                    Toast.makeText(context, "Ignore video", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Video này sẽ chỉ hiển thị trong danh sách bỏ qua", Toast.LENGTH_SHORT).show();
+                    sqlFunctionStatus.updateStatus(String.valueOf(video.getId()),String.valueOf(StaticValues.IGNORE));
+                    arrayVideo.remove(video);
+                    notifyDataSetChanged();
                     return true;
                 default:
             }

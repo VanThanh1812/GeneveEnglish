@@ -21,6 +21,7 @@ public class SQLFunctionVideo {
     public SQLFunctionVideo(Context context) {
         MyDatabaseHelper db = new MyDatabaseHelper(context);
         this.db = db;
+
     }
 
     public Video getItemVideoById(String id){ // lấy 1 Video theo id
@@ -54,29 +55,26 @@ public class SQLFunctionVideo {
         return null;
     }
 
-    public ArrayList<Video> getAllVideo(String id){ // lấy tất cả Video theo id Category, trả về list<>
+    public ArrayList<Video> getAllVideo(){ // lấy tất cả Video theo id Category, trả về list<>
 
         ArrayList<Video> arrVideo = new ArrayList<>();
 
         this.sqLiteDatabase = db.getReadableDatabase();
 
-        String sql = "SELECT * FROM "+MyDatabaseHelper.TABLE_VIDEO+" WHERE "+MyDatabaseHelper.VIDEO_IDCATEGORY+" = "+id;
+        String sql = "SELECT * FROM "+MyDatabaseHelper.TABLE_VIDEO;
 
         Cursor cursor = sqLiteDatabase.rawQuery(sql,null);
 
         if (cursor.moveToFirst()){
+
             do{
+
                 Video video = new Video();
 
                 video.setId(cursor.getString(0));
-
-                Log.d("testcursor",cursor.getString(1)+" * "+cursor.getString(9));
-
                 video.setTitle(cursor.getString(1));
                 video.setDescription(cursor.getString(2));
-                video.
-
-                        setThumbnail(cursor.getString(3));
+                video.setThumbnail(cursor.getString(3));
                 video.setUploaded(cursor.getString(4));
                 video.setDuration(cursor.getString(5));
                 video.setContent(cursor.getString(6));
@@ -87,6 +85,44 @@ public class SQLFunctionVideo {
                 arrVideo.add(video);
 
             }while (cursor.moveToNext());
+
+        } else return null;
+
+        return arrVideo;
+    }
+
+    public ArrayList<Video> getAllVideoByCategory(String id){ // lấy tất cả Video theo id Category, trả về list<>
+
+        ArrayList<Video> arrVideo = new ArrayList<>();
+
+        this.sqLiteDatabase = db.getReadableDatabase();
+
+        String sql = "SELECT * FROM "+MyDatabaseHelper.TABLE_VIDEO+" WHERE "+MyDatabaseHelper.VIDEO_IDCATEGORY +" = "+id;
+
+        Cursor cursor = sqLiteDatabase.rawQuery(sql,null);
+
+        if (cursor.moveToFirst()){
+
+            do{
+
+                Video video = new Video();
+
+                video.setId(cursor.getString(0));
+                video.setTitle(cursor.getString(1));
+                video.setDescription(cursor.getString(2));
+                video.setThumbnail(cursor.getString(3));
+                video.setUploaded(cursor.getString(4));
+                video.setDuration(cursor.getString(5));
+                video.setContent(cursor.getString(6));
+                video.setRating(cursor.getString(7));
+                video.setViewCount(cursor.getString(8));
+                video.setIdCategory(cursor.getString(9));
+
+
+                    arrVideo.add(video);
+
+            }while (cursor.moveToNext());
+
         } else return null;
 
         return arrVideo;
