@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.VideoView;
-public class MainActivity extends AppCompatActivity {
+public class HelloWorld extends AppCompatActivity {
     VideoView videoView;
     Button button;
 
