@@ -7,6 +7,4 @@ package vanthanh.com.model.database;
 public class StaticValues {
     public static final int NORMAL= 0;
     public static final int FAVOURITE= 1;
-    public static final int WATCHLATER= 2;
-    public static final int IGNORE= 3;
 }

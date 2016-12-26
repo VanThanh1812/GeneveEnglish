@@ -19,12 +19,12 @@ import vanthanh.com.model.Video;
  * Created by vanthanhbk on 22/12/2016.
  */
 
-public class VideoIgnoreAdaper extends ArrayAdapter<Video> {
+public class VideoFavoriteAdaper extends ArrayAdapter<Video> {
 
     private Context context;
     private ArrayList<Video> arr;
 
-    public VideoIgnoreAdaper(Context context, ArrayList<Video> list) {
+    public VideoFavoriteAdaper(Context context, ArrayList<Video> list) {
         super(context, 0, list);
         this.context = context;
         this.arr = list;
@@ -32,8 +32,9 @@ public class VideoIgnoreAdaper extends ArrayAdapter<Video> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = LayoutInflater.from(context).inflate(R.layout.activity_video_ignore,null);
+        View v = LayoutInflater.from(context).inflate(R.layout.item_list_video_favorite,null);
         Video video = arr.get(position);
+
         ImageView img = (ImageView) v.findViewById(R.id.ig_img);
         TextView tv_title = (TextView) v.findViewById(R.id.ig_tv_title);
         TextView tv_timeup = (TextView) v.findViewById(R.id.ig_tv_uploaded);

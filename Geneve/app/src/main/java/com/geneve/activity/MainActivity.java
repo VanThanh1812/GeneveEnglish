@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.geneve.R;
 import com.geneve.adapter.CategoryAdapter;
-import com.geneve.adapter.VideoIgnoreAdaper;
 import com.geneve.model.CategoryManager;
 import com.geneve.model.VideoManager;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private MaterialSearchView searchView;
-
+    NavigationView navigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         setSearchView();
@@ -177,7 +176,6 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         searchView.setMenuItem(item);
-
         return true;
     }
 
@@ -200,11 +198,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_favourite) {
-            // Handle the camera action
-        } else if (id == R.id.nav_viewlater) {
-
-        } else if (id == R.id.nav_ignore) {
-            Intent i = new Intent(this, VideoIgnoreActivity.class);
+            Intent i = new Intent(this, VideoFavoriteActivity.class);
             startActivity(i);
         } else if (id == R.id.nav_infomation) {
 
@@ -229,4 +223,9 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    protected void onResume() {
+        navigationView.setCheckedItem(R.id.nav_main);
+        super.onResume();
+    }
 }

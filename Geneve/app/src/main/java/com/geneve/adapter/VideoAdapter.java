@@ -1,6 +1,5 @@
 package com.geneve.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
@@ -37,7 +36,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder { // khoi tao lop
 
         public TextView tv_title;
-        public ImageView iv_thumbail, iv_popup;
+        public ImageView iv_thumbail, iv_popup, iv_favorite;
         public TextView tv_uploaded;
         public TextView tv_rating;
 
@@ -48,10 +47,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
             tv_uploaded = (TextView) itemView.findViewById(R.id.tv_uploaded);
             tv_rating = (TextView) itemView.findViewById(R.id.tv_rating);
             iv_popup = (ImageView) itemView.findViewById(R.id.iv_popup_menu);
+            iv_favorite = (ImageView) itemView.findViewById(R.id.ic_favorite);
         }
     }
 
-    public VideoAdapter(Activity activity,Context context, ArrayList<Video> arrayVideo) {
+    public VideoAdapter(Context context, ArrayList<Video> arrayVideo) {
 
         this.context = context;
         this.arrayVideo = arrayVideo;
@@ -139,17 +139,10 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.MyViewHolder
             switch (item.getItemId()){
                 case R.id.action_add_favourite:
                     Toast.makeText(context, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
+                    View v = LayoutInflater.from(context).inflate(R.layout.item_recyclerview_video,null);
+                    ImageView img = (ImageView) v.findViewById(R.id.ic_favorite);
+                    img.setVisibility(View.VISIBLE);
                     sqlFunctionStatus.updateStatus(String.valueOf(video.getId()),String.valueOf(StaticValues.FAVOURITE));
-                    return true;
-                case R.id.action_add_watch_later:
-                    Toast.makeText(context, "Đã thêm vào xem sau", Toast.LENGTH_SHORT).show();
-                    sqlFunctionStatus.updateStatus(String.valueOf(video.getId()),String.valueOf(StaticValues.WATCHLATER));
-                    return true;
-                case R.id.action_ignore_video:
-                    Toast.makeText(context, "Video này sẽ chỉ hiển thị trong danh sách bỏ qua", Toast.LENGTH_SHORT).show();
-                    sqlFunctionStatus.updateStatus(String.valueOf(video.getId()),String.valueOf(StaticValues.IGNORE));
-                    arrayVideo.remove(video);
-                    notifyDataSetChanged();
                     return true;
                 default:
             }

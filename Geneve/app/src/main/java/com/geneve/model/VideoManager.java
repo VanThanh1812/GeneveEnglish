@@ -16,11 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+import vanthanh.com.model.Category;
 import vanthanh.com.model.Comment;
 import vanthanh.com.model.Video;
 import vanthanh.com.model.database.SQLFunctionCategory;
 import vanthanh.com.model.database.SQLFunctionStatus;
 import vanthanh.com.model.database.SQLFunctionVideo;
+import vanthanh.com.model.database.StaticValues;
 
 /**
  * Created by vanthanhbk on 27/11/2016.
@@ -33,11 +35,29 @@ public class VideoManager { // quản lý video
     private DatabaseReference reference;
     ProgressDialog dialog ;
 
+    private ListView listView ;
+    private CategoryAdapter categoryAdapter;
+    private ArrayList<Category> arr;
+
+    SQLFunctionCategory sqlFunctionCategory;
+
     public VideoManager(Context activity) { // khởi tạo
         this.activity = activity;
         dialog = new ProgressDialog(activity);
         dialog.show();
+        sqlFunctionCategory = new SQLFunctionCategory(activity);
         reference = FirebaseDatabase.getInstance().getReference();
+
+        View v = LayoutInflater.from(activity).inflate(R.layout.activity_main,null);
+
+        listView = (ListView)v.findViewById(R.id.lst);
+
+        arr = sqlFunctionCategory.getListCategory();
+
+        categoryAdapter = new CategoryAdapter(activity, arr);
+
+        listView.setAdapter(categoryAdapter);
+
     }
 
     public VideoManager(Context activity, Video video) {
@@ -73,17 +93,11 @@ public class VideoManager { // quản lý video
 
                 SQLFunctionStatus sqlFunctionStatus = new SQLFunctionStatus(activity);
 
-                sqlFunctionStatus.insertStatusVideo(String.valueOf(video.getId()),"0");
+                sqlFunctionStatus.insertStatusVideo(video.getId(), String.valueOf(StaticValues.NORMAL));
 
-                View v = LayoutInflater.from(activity).inflate(R.layout.activity_main,null);
+                arr = sqlFunctionCategory.getListCategory();
 
-                ListView listView = (ListView)v.findViewById(R.id.lst);
-
-                SQLFunctionCategory sqlFunctionCategory = new SQLFunctionCategory(activity);
-
-                CategoryAdapter categoryAdapter = new CategoryAdapter(activity,sqlFunctionCategory.getListCategory());
-
-                listView.setAdapter(categoryAdapter);
+                categoryAdapter.notifyDataSetChanged();
 
             }
 

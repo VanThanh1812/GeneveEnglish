@@ -18,6 +18,7 @@ public class SQLFunctionVideo {
     private MyDatabaseHelper db;
     private SQLiteDatabase sqLiteDatabase;
 
+
     public SQLFunctionVideo(Context context) {
         MyDatabaseHelper db = new MyDatabaseHelper(context);
         this.db = db;
@@ -86,12 +87,12 @@ public class SQLFunctionVideo {
 
             }while (cursor.moveToNext());
 
-        } else return null;
+        };
 
         return arrVideo;
     }
 
-    public ArrayList<Video> getAllVideoByCategory(String id){ // lấy tất cả Video theo id Category, trả về list<>
+    public ArrayList<Video> getAllVideoByCategory(Context context, String id){ // lấy tất cả Video theo id Category, trả về list<>
 
         ArrayList<Video> arrVideo = new ArrayList<>();
 
@@ -118,8 +119,7 @@ public class SQLFunctionVideo {
                 video.setViewCount(cursor.getString(8));
                 video.setIdCategory(cursor.getString(9));
 
-
-                    arrVideo.add(video);
+                arrVideo.add(video);
 
             }while (cursor.moveToNext());
 

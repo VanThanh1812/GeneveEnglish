@@ -88,7 +88,6 @@ public class WatchVideo extends AppCompatActivity {
         layout.setLayoutParams(params);
         videoView.setLayoutParams(params);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
     }
 
     @Override
@@ -156,10 +155,8 @@ public class WatchVideo extends AppCompatActivity {
                 videoView.pause();
             }
         });
-
         // export video title
         title.setText(object.getTitle());
-
         // khi ấn nút more để lấy thêm thông tin của video
         final LinearLayout container,containernext;
         container = (LinearLayout) findViewById(R.id.container_information);
@@ -197,8 +194,6 @@ public class WatchVideo extends AppCompatActivity {
                 startActivity(new Intent(WatchVideo.this, Rating.class));
             }
         });
-
-
     }
 
     // Custom Media Controller

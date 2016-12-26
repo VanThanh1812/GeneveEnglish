@@ -46,12 +46,9 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
 
         SQLFunctionVideo sqlFunctionVideo = new SQLFunctionVideo(context);
 
-        ArrayList<Video> arrVideo = new ArrayList<>();
+        ArrayList<Video> arrVideo = sqlFunctionVideo.getAllVideoByCategory(context,category.id);
 
-        arrVideo = sqlFunctionVideo.getAllVideoByCategory(category.id);
-
-        final VideoAdapter adapter = new VideoAdapter(context.getApplicationContext(),arrVideo);
-
+        final VideoAdapter adapter = new VideoAdapter(context,arrVideo);
 
         LinearLayoutManager manager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
 

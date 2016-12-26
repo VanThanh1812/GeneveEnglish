@@ -18,41 +18,50 @@ public class SQLFunctionStatus {
 
     private MyDatabaseHelper db;
     private SQLiteDatabase sqLiteDatabase;
-    private SQLFunctionVideo sqlFunctionVideo;
 
     public SQLFunctionStatus(Context context) {
         MyDatabaseHelper db = new MyDatabaseHelper(context);
         this.db = db;
-        sqlFunctionVideo = new SQLFunctionVideo(context);
+        this.sqLiteDatabase = db.getReadableDatabase();
     }
 
-    public ArrayList<Video> getListVideoStatus(String status){
-        ArrayList<Video> arr = new ArrayList<>();
-        arr = sqlFunctionVideo.getAllVideo();
+    public ArrayList<Video> getListVideoStatus(ArrayList<Video> arr ,String status){ // lấy ra list video thỏa mãn cái status kia
+
+        ArrayList<Video> arr2 = new ArrayList<>(); // arr nhận dữ liệu
+
         for (int i = 0; i< arr.size();i++){
-            if (arr.get(i).getId() != status){
-                arr.remove(i);
+            String id_video = arr.get(i).getId(); // lấy ra id video để truy vấn trang thái
+            String sql = "SELECT * FROM "+
+                    MyDatabaseHelper.TABLE_STATUSVIDEO+
+                    " WHERE "+MyDatabaseHelper.STATUS_ID+" = "+id_video;
+            Cursor cursor = sqLiteDatabase.rawQuery(sql,null);
+
+            if (cursor.moveToNext() ){
+                if (cursor.getString(1).equals(status)){
+                    arr2.add(arr.get(i));
+                };
+                Log.i("filter video", String.valueOf(i)+"--"+status+"--"+cursor.getString(1));
             }
         }
-        return arr;
+        Log.d("sizearr", String.valueOf(arr2.size()));
+        return arr2;
     }
 
-    public int checkStatusVideo(String id){
-
-        int i = 0;
-        this.sqLiteDatabase = db.getReadableDatabase();
-        String sql = "SELECT * FROM "+
-                MyDatabaseHelper.TABLE_STATUSVIDEO+
-                " WHERE "+MyDatabaseHelper.STATUS_ID+" = "+id;
-
-        Cursor cursor = sqLiteDatabase.rawQuery(sql,null);
-        if (cursor != null ){
-            cursor.moveToNext();
-            Log.d("checkid",cursor.getString(1));
-            return Integer.parseInt(cursor.getString(1));
-        }
-        return i;
-    }
+//    public boolean checkStatusVideo(String id){ // check video có id là id , nếu là ignore thì ko show , nếu khác ignore thì show
+//
+//        int i = 0;
+//        String sql = "SELECT * FROM "+
+//                MyDatabaseHelper.TABLE_STATUSVIDEO+
+//                " WHERE "+MyDatabaseHelper.STATUS_ID+" = "+id;
+//
+//        Cursor cursor = sqLiteDatabase.rawQuery(sql,null);
+//        if (cursor != null ){
+//            cursor.moveToNext();
+//            Log.d("checkid",cursor.getString(1));
+//            return (Integer.parseInt(cursor.getString(1)) != StaticValues.IGNORE);
+//        }
+//        return false;
+//    }
 
     public void insertStatusVideo (String id, String number){
 
@@ -81,4 +90,9 @@ public class SQLFunctionStatus {
 
     }
 
+    public void deleteTable(){
+        String sql = "DROP TABLE "+MyDatabaseHelper.TABLE_STATUSVIDEO;
+        this.sqLiteDatabase = db.getWritableDatabase();
+        sqLiteDatabase.execSQL(sql);
+    }
 }

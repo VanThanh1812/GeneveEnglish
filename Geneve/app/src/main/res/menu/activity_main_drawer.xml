@@ -3,17 +3,13 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_main"
+            android:icon="@drawable/ic_main"
+            android:title="Tất cả" />
+        <item
             android:id="@+id/nav_favourite"
             android:icon="@drawable/ic_favourist"
             android:title="Danh sách yêu thích" />
-        <item
-            android:id="@+id/nav_viewlater"
-            android:icon="@drawable/ic_viewlater"
-            android:title="Danh sách xem sau" />
-        <item
-            android:id="@+id/nav_ignore"
-            android:icon="@drawable/ic_ignore"
-            android:title="Danh sách bỏ qua" />
     </group>
 
     <item android:title="Communicate">
